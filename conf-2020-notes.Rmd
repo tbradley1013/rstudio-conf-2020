@@ -8,5 +8,39 @@ output: html_document
 # `rstudio::conf(2020)` Notes
 
 
+# First session
 
+- Look into using the `pins` package for saving intermediate datasets 
+
+
+## Practical Plumber patterns
+
+How to test the api?
+
+  - Is there a way that we can take the plumber api and put it into a package to use its testing framework? The answer is yes
+  - There is a recommened file structure for the file 
+  - plumber files are defined in the `inst/plumber` folder with the standard logic stored in functions in the `R/` file
+  - testing occurs on the R files to make sure that the underlying functionality works as expected
+  - plumber tests include testing things like the api response and the reponse format
+  - In order to do the plumber tests, you have to have the plumber api deployed somewhere
+    
+      - This can be done with the callr package to run a dummy server
+      
+  - Now when the tests are run, you are testing both the underlying functionality and the api responses
+
+How do you deploy the API?
+
+  - Deploying the Rstudio connect is great but it can be a burden if there are a lot of updates to the model or underlying code
+  - An alternative is the "Import from Git" option!! This is awesome
+  - You need to have a `manifest.json` file in order for connect to create the content on the server
+  - you can create this manifest package using the `rsconnect` package. 
+  - This will allow for git based development that automatically deploys from master (or any branch I assume)
+  - 
+  
+How do we scale?
+
+  - one of the important things is to log the information 
+  - You can use the `registerHooks` method of the api to include additional information in the request details
+  - the `loadtest` package can help to generate simulated loads against an API endpoint
+  
 
